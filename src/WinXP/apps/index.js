@@ -1,5 +1,4 @@
 import InternetExplorer from './InternetExplorer';
-import Minesweeper from './Minesweeper';
 import ErrorBox from './ErrorBox';
 import MyComputer from './MyComputer';
 import Notepad from './Notepad';
@@ -7,7 +6,6 @@ import Winamp from './Winamp';
 import Paint from './Paint';
 import iePaper from '../../assets/windowsIcons/ie-paper.png';
 import ie from '../../assets/windowsIcons/ie.png';
-import mine from '../../assets/minesweeper/mine-icon.png';
 import error from '../../assets/windowsIcons/897(16x16).png';
 import computer from '../../assets/windowsIcons/676(16x16).png';
 import computerLarge from '../../assets/windowsIcons/676(32x32).png';
@@ -44,26 +42,6 @@ export const defaultAppState = [
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
-    id: genId(),
-    zIndex: genIndex(),
-  },
-  {
-    component: Minesweeper,
-    header: {
-      title: 'Minesweeper',
-      icon: mine,
-    },
-    defaultSize: {
-      width: 0,
-      height: 0,
-    },
-    defaultOffset: {
-      x: 180,
-      y: 170,
-    },
-    resizable: false,
-    minimized: false,
-    maximized: false,
     id: genId(),
     zIndex: genIndex(),
   },
@@ -119,13 +97,6 @@ export const defaultIconState = [
     isFocus: false,
   },
   {
-    id: 1,
-    icon: mine,
-    title: 'Minesweeper',
-    component: Minesweeper,
-    isFocus: false,
-  },
-  {
     id: 2,
     icon: computerLarge,
     title: 'My Computer',
@@ -173,25 +144,6 @@ export const appSettings = {
     resizable: true,
     minimized: false,
     maximized: window.innerWidth < 800,
-    multiInstance: true,
-  },
-  Minesweeper: {
-    header: {
-      icon: mine,
-      title: 'Minesweeper',
-    },
-    component: Minesweeper,
-    defaultSize: {
-      width: 0,
-      height: 0,
-    },
-    defaultOffset: {
-      x: 190,
-      y: 180,
-    },
-    resizable: false,
-    minimized: false,
-    maximized: false,
     multiInstance: true,
   },
   Error: {
@@ -294,4 +246,4 @@ export const appSettings = {
   },
 };
 
-export { InternetExplorer, Minesweeper, ErrorBox, MyComputer, Notepad, Winamp };
+export { InternetExplorer, ErrorBox, MyComputer, Notepad, Winamp };
