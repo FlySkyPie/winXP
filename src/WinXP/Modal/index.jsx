@@ -2,12 +2,12 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
-import { POWER_STATE } from 'WinXP/constants';
-import windowsLogo from 'assets/windowsIcons/windows-off.png';
-import off from 'assets/windowsIcons/310(32x32).png';
-import lock from 'assets/windowsIcons/546(32x32).png';
-import restart from 'assets/windowsIcons/restart.ico';
-import switcher from 'assets/windowsIcons/290.png';
+import { POWER_STATE } from '../../WinXP/constants';
+import windowsLogo from '../../assets/windowsIcons/windows-off.png';
+import off from '../../assets/windowsIcons/310(32x32).png';
+import lock from '../../assets/windowsIcons/546(32x32).png';
+import restart from '../../assets/windowsIcons/restart.ico';
+import switcher from '../../assets/windowsIcons/290.png';
 
 function Modal(props) {
   return createPortal(

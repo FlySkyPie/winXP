@@ -14,12 +14,15 @@
     "webamp": "^1.3.2-beta.2"
   },
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build:RCA": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "now-build": "react-scripts build",
-    "lint": "eslint src"
+    "now-build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
@@ -33,11 +36,17 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^3.1.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "@vitejs/plugin-react": "^5.0.0",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "vite": "^7.1.2",
+    "@eslint/js": "^9.33.0"
   },
   "engines": {
     "node": ">=10.16.0"

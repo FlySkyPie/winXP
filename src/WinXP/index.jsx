@@ -2,6 +2,7 @@ import React, { useReducer, useRef, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 
+import { DashedBox } from '../components';
 import {
   ADD_APP,
   DEL_APP,
@@ -22,7 +23,6 @@ import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
-import { DashedBox } from 'components';
 
 const initState = {
   apps: defaultAppState,
