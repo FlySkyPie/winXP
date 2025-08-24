@@ -1,23 +1,12 @@
-import React, { useReducer, useRef, useCallback } from 'react';
+import { useReducer, useRef, useCallback } from 'react';
 import clsx from 'clsx';
 import useMouse from 'react-use/lib/useMouse';
 
 import { DashedBox } from '../components';
-import {
-  ADD_APP,
-  DEL_APP,
-  FOCUS_APP,
-  MINIMIZE_APP,
-  TOGGLE_MAXIMIZE_APP,
-  FOCUS_ICON,
-  SELECT_ICONS,
-  FOCUS_DESKTOP,
-  START_SELECT,
-  END_SELECT,
-  POWER_OFF,
-  CANCEL_POWER_OFF,
-} from './constants/actions';
-import { FOCUSING, POWER_STATE } from './constants';
+
+import { ActionType } from './constants/action-type';
+import { Focusing as FOCUSING } from './constants/focusing';
+import { PowerState as POWER_STATE } from './constants/power-state';
 import { appSettings } from './apps/app-settings';
 import Modal from './Modal';
 import Footer from './Footer';
@@ -32,12 +21,12 @@ function WinXP() {
   const mouse = useMouse(ref);
   const focusedAppId = getFocusedAppId();
   const onFocusApp = useCallback(id => {
-    dispatch({ type: FOCUS_APP, payload: id });
+    dispatch({ type: ActionType.FOCUS_APP, payload: id });
   }, []);
   const onMaximizeWindow = useCallback(
     id => {
       if (focusedAppId === id) {
-        dispatch({ type: TOGGLE_MAXIMIZE_APP, payload: id });
+        dispatch({ type: ActionType.TOGGLE_MAXIMIZE_APP, payload: id });
       }
     },
     [focusedAppId],
@@ -45,7 +34,7 @@ function WinXP() {
   const onMinimizeWindow = useCallback(
     id => {
       if (focusedAppId === id) {
-        dispatch({ type: MINIMIZE_APP, payload: id });
+        dispatch({ type: ActionType.MINIMIZE_APP, payload: id });
       }
     },
     [focusedAppId],
@@ -53,26 +42,26 @@ function WinXP() {
   const onCloseApp = useCallback(
     id => {
       if (focusedAppId === id) {
-        dispatch({ type: DEL_APP, payload: id });
+        dispatch({ type: ActionType.DEL_APP, payload: id });
       }
     },
     [focusedAppId],
   );
-  function onMouseDownFooterApp(id) {
+  function onMouseDownFooterApp(id: any) {
     if (focusedAppId === id) {
-      dispatch({ type: MINIMIZE_APP, payload: id });
+      dispatch({ type: ActionType.MINIMIZE_APP, payload: id });
     } else {
-      dispatch({ type: FOCUS_APP, payload: id });
+      dispatch({ type: ActionType.FOCUS_APP, payload: id });
     }
   }
-  function onMouseDownIcon(id) {
-    dispatch({ type: FOCUS_ICON, payload: id });
+  function onMouseDownIcon(id: any) {
+    dispatch({ type: ActionType.FOCUS_ICON, payload: id });
   }
-  function onDoubleClickIcon(component) {
+  function onDoubleClickIcon(component: any) {
     const appSetting = Object.values(appSettings).find(
       setting => setting.component === component,
     );
-    dispatch({ type: ADD_APP, payload: appSetting });
+    dispatch({ type: ActionType.ADD_APP, payload: appSetting });
   }
   function getFocusedAppId() {
     if (state.focusing !== FOCUSING.WINDOW) return -1;
@@ -82,55 +71,55 @@ function WinXP() {
     return focusedApp ? focusedApp.id : -1;
   }
   function onMouseDownFooter() {
-    dispatch({ type: FOCUS_DESKTOP });
+    dispatch({ type: ActionType.FOCUS_DESKTOP });
   }
-  function onClickMenuItem(o) {
+  function onClickMenuItem(o: any) {
     if (o === 'Internet')
-      dispatch({ type: ADD_APP, payload: appSettings['Internet Explorer'] });
+      dispatch({ type: ActionType.ADD_APP, payload: appSettings['Internet Explorer'] });
     else if (o === 'My Computer')
-      dispatch({ type: ADD_APP, payload: appSettings['My Computer'] });
+      dispatch({ type: ActionType.ADD_APP, payload: appSettings['My Computer'] });
     else if (o === 'Notepad')
-      dispatch({ type: ADD_APP, payload: appSettings.Notepad });
+      dispatch({ type: ActionType.ADD_APP, payload: appSettings.Notepad });
     else if (o === 'Paint')
-      dispatch({ type: ADD_APP, payload: appSettings.Paint });
+      dispatch({ type: ActionType.ADD_APP, payload: appSettings.Paint });
     else if (o === 'Log Off')
-      dispatch({ type: POWER_OFF, payload: POWER_STATE.LOG_OFF });
+      dispatch({ type: ActionType.POWER_OFF, payload: POWER_STATE.LOG_OFF });
     else if (o === 'Turn Off Computer')
-      dispatch({ type: POWER_OFF, payload: POWER_STATE.TURN_OFF });
+      dispatch({ type: ActionType.POWER_OFF, payload: POWER_STATE.TURN_OFF });
     else
       dispatch({
-        type: ADD_APP,
+        type: ActionType.ADD_APP,
         payload: {
           ...appSettings.Error,
           injectProps: { message: 'C:\\\nApplication not found' },
         },
       });
   }
-  function onMouseDownDesktop(e) {
+  function onMouseDownDesktop(e: any) {
     if (e.target === e.currentTarget)
       dispatch({
-        type: START_SELECT,
+        type: ActionType.START_SELECT,
         payload: { x: mouse.docX, y: mouse.docY },
       });
   }
-  function onMouseUpDesktop(e) {
-    dispatch({ type: END_SELECT });
+  function onMouseUpDesktop() {
+    dispatch({ type: ActionType.END_SELECT });
   }
   const onIconsSelected = useCallback(
     iconIds => {
-      dispatch({ type: SELECT_ICONS, payload: iconIds });
+      dispatch({ type: ActionType.SELECT_ICONS, payload: iconIds });
     },
     [dispatch],
   );
-  function onClickModalButton(text) {
-    dispatch({ type: CANCEL_POWER_OFF });
+  function onClickModalButton() {
+    dispatch({ type: ActionType.CANCEL_POWER_OFF });
     dispatch({
-      type: ADD_APP,
+      type: ActionType.ADD_APP,
       payload: appSettings.Error,
     });
   }
   function onModalClose() {
-    dispatch({ type: CANCEL_POWER_OFF });
+    dispatch({ type: ActionType.CANCEL_POWER_OFF });
   }
   return (
     <div
@@ -150,7 +139,6 @@ function WinXP() {
         onMouseDown={onMouseDownIcon}
         onDoubleClick={onDoubleClickIcon}
         displayFocus={state.focusing === FOCUSING.ICON}
-        appSettings={appSettings}
         mouse={mouse}
         selecting={state.selecting}
         setSelectedIcons={onIconsSelected}

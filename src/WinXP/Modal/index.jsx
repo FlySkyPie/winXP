@@ -2,7 +2,7 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 
-import { POWER_STATE } from '../../WinXP/constants';
+import { PowerState as POWER_STATE } from '../../WinXP/constants/power-state';
 import windowsLogo from '../../assets/windowsIcons/windows-off.png';
 import off from '../../assets/windowsIcons/310(32x32).png';
 import lock from '../../assets/windowsIcons/546(32x32).png';

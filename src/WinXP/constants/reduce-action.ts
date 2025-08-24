@@ -1,4 +1,5 @@
 import type { ActionType } from "./action-type"
+import type { PowerState } from "./power-state";
 
 export interface AddAppAction {
     type: ActionType.ADD_APP;
@@ -41,7 +42,7 @@ export interface FocusDesktopAction {
 
 export interface StartSelectAction {
     type: ActionType.START_SELECT;
-    payload: any;
+    payload: { x: number, y: number };
 };
 
 export interface EndSelectAction {
@@ -50,7 +51,7 @@ export interface EndSelectAction {
 
 export interface PowerOffAction {
     type: ActionType.POWER_OFF;
-    payload: any;
+    payload: PowerState;
 };
 
 export interface CancelPowerOffaction {

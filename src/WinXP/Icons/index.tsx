@@ -3,7 +3,17 @@ import clsx from 'clsx';
 
 import styles from './styles.module.scss'
 
-function Icons({
+interface IIconsProps {
+  icons: any,
+  onMouseDown: any,
+  onDoubleClick: any,
+  displayFocus: any,
+  mouse: any,
+  selecting: any,
+  setSelectedIcons: any,
+};
+
+const Icons: React.FC<IIconsProps> = ({
   icons,
   onMouseDown,
   onDoubleClick,
@@ -11,11 +21,11 @@ function Icons({
   mouse,
   selecting,
   setSelectedIcons,
-}) {
-  const [iconsRect, setIconsRect] = useState([]);
-  function measure(rect) {
+}) => {
+  const [iconsRect, setIconsRect] = useState<any[]>([]);
+  function measure(rect: any) {
     if (iconsRect.find(r => r.id === rect.id)) return;
-    setIconsRect(iconsRect => [...iconsRect, rect]);
+    setIconsRect((iconsRect: any) => [...iconsRect, rect]);
   }
   useEffect(() => {
     if (!selecting) return;
@@ -33,13 +43,13 @@ function Icons({
   }, [iconsRect, setSelectedIcons, selecting, mouse.docX, mouse.docY]);
   return (
     <div className={styles.root}>
-      {icons.map(icon => (
+      {icons.map((icon: any) => (
         <Icon
           key={icon.id}
           {...icon}
           className={clsx(
             styles.icon,
-            icon.isFocus &&displayFocus && styles['displayFocus'],
+            icon.isFocus && displayFocus && styles['displayFocus'],
           )}
           onMouseDown={onMouseDown}
           onDoubleClick={onDoubleClick}
@@ -50,7 +60,18 @@ function Icons({
   );
 }
 
-function Icon({
+interface IIconProps {
+  title: any,
+  onMouseDown: any,
+  onDoubleClick: any,
+  icon: any,
+  className: any,
+  id: any,
+  component: any,
+  measure: any,
+};
+
+const Icon: React.FC<IIconProps> = ({
   title,
   onMouseDown,
   onDoubleClick,
@@ -59,8 +80,8 @@ function Icon({
   id,
   component,
   measure,
-}) {
-  const ref = useRef(null);
+}) => {
+  const ref = useRef<any>(null);
   function _onMouseDown() {
     onMouseDown(id);
   }

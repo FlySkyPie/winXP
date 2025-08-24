@@ -1,17 +1,4 @@
-import {
-    ADD_APP,
-    DEL_APP,
-    FOCUS_APP,
-    MINIMIZE_APP,
-    TOGGLE_MAXIMIZE_APP,
-    FOCUS_ICON,
-    SELECT_ICONS,
-    FOCUS_DESKTOP,
-    START_SELECT,
-    END_SELECT,
-    POWER_OFF,
-    CANCEL_POWER_OFF,
-} from './constants/actions';
+import { ActionType } from './constants/action-type';
 import { defaultAppState, type IAppState } from './apps/default-app-state';
 import { defaultIconState, type IIconState } from './apps/default-icon-state';
 import { Focusing as FOCUSING } from './constants/focusing';
@@ -40,7 +27,7 @@ export const initState: IState = {
 
 export const reducer = (state: any, action: IActions): IState => {
     switch (action.type) {
-        case ADD_APP:
+        case ActionType.ADD_APP:
             const app = state.apps.find(
                 (_app: any) => _app.component === action.payload.component,
             );
@@ -71,7 +58,7 @@ export const reducer = (state: any, action: IActions): IState => {
                 nextZIndex: state.nextZIndex + 1,
                 focusing: FOCUSING.WINDOW,
             };
-        case DEL_APP:
+        case ActionType.DEL_APP:
             if (state.focusing !== FOCUSING.WINDOW) return state;
             return {
                 ...state,
@@ -83,7 +70,7 @@ export const reducer = (state: any, action: IActions): IState => {
                             ? FOCUSING.ICON
                             : FOCUSING.DESKTOP,
             };
-        case FOCUS_APP: {
+        case ActionType.FOCUS_APP: {
             const apps = state.apps.map((app: any) =>
                 app.id === action.payload
                     ? { ...app, zIndex: state.nextZIndex, minimized: false }
@@ -96,7 +83,7 @@ export const reducer = (state: any, action: IActions): IState => {
                 focusing: FOCUSING.WINDOW,
             };
         }
-        case MINIMIZE_APP: {
+        case ActionType.MINIMIZE_APP: {
             if (state.focusing !== FOCUSING.WINDOW) return state;
             const apps = state.apps.map((app: any) =>
                 app.id === action.payload ? { ...app, minimized: true } : app,
@@ -107,7 +94,7 @@ export const reducer = (state: any, action: IActions): IState => {
                 focusing: FOCUSING.WINDOW,
             };
         }
-        case TOGGLE_MAXIMIZE_APP: {
+        case ActionType.TOGGLE_MAXIMIZE_APP: {
             if (state.focusing !== FOCUSING.WINDOW) return state;
             const apps = state.apps.map((app: any) =>
                 app.id === action.payload ? { ...app, maximized: !app.maximized } : app,
@@ -118,7 +105,7 @@ export const reducer = (state: any, action: IActions): IState => {
                 focusing: FOCUSING.WINDOW,
             };
         }
-        case FOCUS_ICON: {
+        case ActionType.FOCUS_ICON: {
             const icons = state.icons.map((icon: any) => ({
                 ...icon,
                 isFocus: icon.id === action.payload,
@@ -129,7 +116,7 @@ export const reducer = (state: any, action: IActions): IState => {
                 icons,
             };
         }
-        case SELECT_ICONS: {
+        case ActionType.SELECT_ICONS: {
             const icons = state.icons.map((icon: any) => ({
                 ...icon,
                 isFocus: action.payload.includes(icon.id),
@@ -140,7 +127,7 @@ export const reducer = (state: any, action: IActions): IState => {
                 focusing: FOCUSING.ICON,
             };
         }
-        case FOCUS_DESKTOP:
+        case ActionType.FOCUS_DESKTOP:
             return {
                 ...state,
                 focusing: FOCUSING.DESKTOP,
@@ -149,7 +136,7 @@ export const reducer = (state: any, action: IActions): IState => {
                     isFocus: false,
                 })),
             };
-        case START_SELECT:
+        case ActionType.START_SELECT:
             return {
                 ...state,
                 focusing: FOCUSING.DESKTOP,
@@ -159,17 +146,17 @@ export const reducer = (state: any, action: IActions): IState => {
                 })),
                 selecting: action.payload,
             };
-        case END_SELECT:
+        case ActionType.END_SELECT:
             return {
                 ...state,
                 selecting: null,
             };
-        case POWER_OFF:
+        case ActionType.POWER_OFF:
             return {
                 ...state,
                 powerState: action.payload,
             };
-        case CANCEL_POWER_OFF:
+        case ActionType.CANCEL_POWER_OFF:
             return {
                 ...state,
                 powerState: POWER_STATE.START,
