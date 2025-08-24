@@ -1,5 +1,5 @@
 import React, { useReducer, useRef, useCallback } from 'react';
-import styled, { keyframes } from 'styled-components';
+import clsx from 'clsx';
 import useMouse from 'react-use/lib/useMouse';
 
 import { DashedBox } from '../components';
@@ -24,6 +24,7 @@ import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
 import { reducer, initState } from './reducer';
+import styles from './styles.module.scss';
 
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
@@ -132,11 +133,17 @@ function WinXP() {
     dispatch({ type: CANCEL_POWER_OFF });
   }
   return (
-    <Container
+    <div
       ref={ref}
+      className={clsx(
+        styles.root,
+        state.powerState === POWER_STATE.START && styles['power_start'],
+        state.powerState === POWER_STATE.TURN_OFF && styles['power_off'],
+        state.powerState === POWER_STATE.LOG_OFF && styles['power_off'],
+      )}
       onMouseUp={onMouseUpDesktop}
       onMouseDown={onMouseDownDesktop}
-      state={state.powerState}
+    // state={state.powerState}
     >
       <Icons
         icons={state.icons}
@@ -171,39 +178,8 @@ function WinXP() {
           mode={state.powerState}
         />
       )}
-    </Container>
+    </div>
   );
 }
-
-const powerOffAnimation = keyframes`
-  0% {
-    filter: brightness(1) grayscale(0);
-  }
-  30% {
-    filter: brightness(1) grayscale(0);
-  }
-  100% {
-    filter: brightness(0.6) grayscale(1);
-  }
-`;
-const animation = {
-  [POWER_STATE.START]: '',
-  [POWER_STATE.TURN_OFF]: powerOffAnimation,
-  [POWER_STATE.LOG_OFF]: powerOffAnimation,
-};
-
-const Container = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
-  font-family: Tahoma, 'Noto Sans', sans-serif;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  background: url(https://i.imgur.com/Zk6TR5k.jpg) no-repeat center center fixed;
-  background-size: cover;
-  animation: ${({ state }) => animation[state]} 5s forwards;
-  *:not(input):not(textarea) {
-    user-select: none;
-  }
-`;
 
 export default WinXP;

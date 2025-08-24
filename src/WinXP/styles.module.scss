@@ -1,0 +1,35 @@
+@keyframes powerOffAnimation {
+    0% {
+        filter: brightness(1) grayscale(0);
+    }
+
+    30% {
+        filter: brightness(1) grayscale(0);
+    }
+
+    100% {
+        filter: brightness(0.6) grayscale(1);
+    }
+}
+
+.root {
+    @import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+    font-family       : Tahoma, 'Noto Sans', sans-serif;
+    height            : 100%;
+    overflow          : hidden;
+    position          : relative;
+    background        : url(https://i.imgur.com/Zk6TR5k.jpg) no-repeat center center fixed;
+    background-size   : cover;
+
+    &.power_start {
+        animation: unset;
+    }
+
+    &.power_off {
+        animation: powerOffAnimation 5s forwards;
+    }
+
+    *:not(input):not(textarea) {
+        user-select: none;
+    }
+}
