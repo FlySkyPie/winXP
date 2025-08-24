@@ -2,4 +2,3 @@ onlyBuiltDependencies:
   - core-js
   - core-js-pure
   - esbuild
-  - styled-components
