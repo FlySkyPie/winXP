@@ -9,32 +9,17 @@
     "lodash.samplesize": "^4.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "^5.0.1",
     "react-use": "^7.0.1"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "start": "react-scripts start",
-    "build:RCA": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "now-build": "react-scripts build"
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "devDependencies": {
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^16.0.0",
     "@eslint/js": "^9.33.0",
     "@vitejs/plugin-react": "^5.0.0",
     "eslint": "^9.33.0",
@@ -46,9 +31,11 @@
     "globals": "^16.3.0",
     "prettier": "^1.18.2",
     "sass-embedded": "^1.90.0",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.39.1"
   },
   "engines": {
-    "node": ">=10.16.0"
+    "node": ">=20.0.0"
   }
 }

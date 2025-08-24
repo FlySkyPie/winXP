@@ -1,5 +1,3 @@
-import React from 'react';
-
 import WinXP from './WinXP';
 
 const App = () => {
