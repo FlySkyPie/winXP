@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 
 import styles from './stylees.module.scss';
 
-function SubMenu({ className, data, style, onClick }) {
+interface ISubMenuProps {
+  className?: string,
+  data: any[],
+  style?: React.CSSProperties,
+  bottom?: string | number;
+  left?: string | number;
+  onClick: any;
+};
+
+const SubMenu: React.FC<ISubMenuProps> = ({
+  className,
+  data,
+  bottom,
+  left,
+  style,
+  onClick }) => {
   const [hoverIndex, setHoverIndex] = useState(-1);
   return (
     <div
       className={clsx(styles.root, className)}
-      style={{ ...style }}     >
+      style={{ bottom, left, ...style }}     >
       {data.map((item, index) => (
         <SubMenuItem
           onClick={onClick}
@@ -24,7 +39,16 @@ function SubMenu({ className, data, style, onClick }) {
   );
 }
 
-const SubMenuItem = ({ index, item, className, hover, onHover, onClick }) => {
+interface ISubMenuItemProps {
+  index: any,
+  item: any,
+  className?: string,
+  hover: any,
+  onHover: any,
+  onClick: any
+};
+
+const SubMenuItem: React.FC<ISubMenuItemProps> = ({ index, item, className, hover, onHover, onClick }) => {
   function _onMouseOver() {
     onHover(index);
   }

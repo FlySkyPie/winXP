@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 
 import SubMenu from '../../components/SubMenu';
 import ie from '../../assets/windowsIcons/ie.png';
-import mine from '../../assets/minesweeper/mine-icon.png';
 import setAccess from '../../assets/windowsIcons/227(32x32).png';
 import outlook from '../../assets/windowsIcons/887(32x32).png';
 import mediaPlayer from '../../assets/windowsIcons/846(32x32).png';
@@ -24,16 +23,20 @@ import lock from '../../assets/windowsIcons/546(32x32).png';
 import user from '../../assets/windowsIcons/user.png';
 import shut from '../../assets/windowsIcons/310(32x32).png';
 import allProgramsIcon from '../../assets/windowsIcons/all-programs.ico';
-import winamp from '../../assets/windowsIcons/winamp.png';
 import notepad from '../../assets/windowsIcons/327(32x32).png';
 import empty from '../../assets/empty.png';
 
 import { AllPrograms, ConnectTo, MyRecentDocuments } from './FooterMenuData';
 import styles from './footer.styles.module.scss';
 
-function FooterMenu({ className, onClick }) {
+interface IFooterMenuProps {
+  className?: string,
+  onClick: any;
+};
+
+const FooterMenu: React.FC<IFooterMenuProps> = ({ className, onClick }) => {
   const [hovering, setHovering] = useState('');
-  function onMouseOver(e) {
+  function onMouseOver(e: any) {
     const item = e.target.closest(`.${styles['menu__item']}`);
     if (!item) return;
     const textEl = item.querySelector(`.${styles['menu__item__text']}`);
@@ -193,17 +196,36 @@ function FooterMenu({ className, onClick }) {
     </div>
   );
 }
-function Items({ items, ...rest }) {
-  return items.map((item, i) => <Item key={i} {...item} {...rest} />);
+
+interface IItemsProps {
+  items: any[];
+  onClick: any;
+};
+
+const Items: React.FC<IItemsProps> = ({ items, ...rest }) => {
+  return <>
+    {items.map((item, i) => <Item key={i} {...item} {...rest} />)}
+  </>;
 }
-function Item({
+
+
+interface IItemProps {
+  style?: any,
+  text: any,
+  icon: any,
+  children?: React.ReactNode,
+  onHover?: any,
+  onClick?: any,
+};
+
+const Item: React.FC<IItemProps> = ({
   style,
   text,
   icon,
   onHover = () => { },
   onClick = () => { },
   children,
-}) {
+}) => {
   function _onClick() {
     onClick(text);
   }

@@ -55,14 +55,28 @@ import pinball from '../../assets/windowsIcons/pinball.png';
 import restore from '../../assets/windowsIcons/restore.ico';
 import mine from '../../assets/minesweeper/mine-icon.png';
 
-export const MyRecentDocuments = [
+interface ISeparatorItem {
+  type: "separator";
+};
+
+export interface IFooterMenuAppItem {
+  type: string;
+  icon: string;
+  text: string;
+  bottom?: string;
+  items?: IFooterMenuItem[];
+}
+
+export type IFooterMenuItem = ISeparatorItem | IFooterMenuAppItem;
+
+export const MyRecentDocuments: IFooterMenuItem[] = [
   {
     type: 'item',
     icon: empty,
     text: '(Empty)',
   },
 ];
-export const ConnectTo = [
+export const ConnectTo: IFooterMenuItem[] = [
   {
     type: 'item',
     icon: MSN,
@@ -74,7 +88,7 @@ export const ConnectTo = [
     text: 'Show all connections',
   },
 ];
-export const AllPrograms = [
+export const AllPrograms: IFooterMenuItem[] = [
   {
     type: 'item',
     icon: access,
