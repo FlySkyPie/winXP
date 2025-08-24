@@ -1,0 +1,28 @@
+.root {
+    display         : inline-flex;
+    height          : 20px;
+    line-height     : 20px;
+    //   height: ${({ height }) => height || 20}px;
+    //   line-height: ${({ height }) => height || 20}px;
+    position        : relative;
+
+    .drop-down {
+        font-size: 11px;
+        height   : 100%;
+        position : relative;
+    }
+
+    .drop-down__label--active {
+        background-color: #1660e8;
+        color           : #fff;
+    }
+
+    .drop-down__label {
+        padding: 0 7px;
+
+        &:hover {
+            background-color: #1660e8;
+            color           : #fff;
+        }
+    }
+}

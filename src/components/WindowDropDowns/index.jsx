@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
+import clsx from 'clsx';
+
 import WindowDropDown from './WindowDropDown';
+import styles from './styles.module.scss';
 
 export function WindowDropDowns({
   items,
@@ -27,18 +29,25 @@ export function WindowDropDowns({
     };
   }, []);
   return (
-    <div className={className} ref={dropDown}>
+    <div
+      ref={dropDown}
+      className={clsx(styles.root, className)}
+      style={{
+        height: height && `${height}px`,
+        lineHeight: height && `${height}px`,
+      }}>
       {Object.keys(items).map(name => (
-        <div className="drop-down" key={name}>
+        <div className={styles["drop-down"]} key={name}>
           <div
             key={name}
             onMouseDown={() => {
               setOpenOption(name);
             }}
             onMouseEnter={() => hoverOption(name)}
-            className={`drop-down__label ${
-              openOption === name ? 'drop-down__label--active' : ''
-            }`}
+            className={clsx(
+              styles["drop-down__label"],
+              openOption === name && styles['drop-down__label--active'],
+            )}
           >
             {name}
           </div>
@@ -55,25 +64,4 @@ export function WindowDropDowns({
   );
 }
 
-export default styled(WindowDropDowns)`
-  display: inline-flex;
-  height: ${({ height }) => height || 20}px;
-  line-height: ${({ height }) => height || 20}px;
-  position: relative;
-  .drop-down {
-    font-size: 11px;
-    height: 100%;
-    position: relative;
-  }
-  .drop-down__label--active {
-    background-color: #1660e8;
-    color: #fff;
-  }
-  .drop-down__label {
-    padding: 0 7px;
-    &:hover {
-      background-color: #1660e8;
-      color: #fff;
-    }
-  }
-`;
+export default WindowDropDowns;
