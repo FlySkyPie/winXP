@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import clsx from 'clsx';
 
 import type { IAppState } from '../apps/default-app-state';
@@ -46,10 +46,12 @@ const Footer: React.FC<IFooterProps> = ({
 }) => {
   const [time, setTime] = useState(getTime);
   const [menuOn, setMenuOn] = useState(false);
-  const menu = useRef<any>(null);
-  function toggleMenu() {
+  const menu = useRef<HTMLDivElement>(null);
+
+  const toggleMenu = useCallback(() => {
     setMenuOn(on => !on);
-  }
+  }, []);
+
   function _onMouseDown(e: any) {
     if (e.target.closest(`.${styles['footer__window']}`)) return;
     onMouseDown();
@@ -65,18 +67,24 @@ const Footer: React.FC<IFooterProps> = ({
     }, 1000);
     return () => clearInterval(timer);
   }, [time]);
+
   useEffect(() => {
     const target = menu.current;
     if (!target) return;
-    function onMouseDown(e: any) {
-      if (!target.contains(e.target) && menuOn) setMenuOn(false);
+
+    const onMouseDown = (e: any) => {
+      if (!target.contains(e.target) && menuOn) {
+        // setMenuOn(false);
+      }
     }
+
     window.addEventListener('mousedown', onMouseDown);
     return () => window.removeEventListener('mousedown', onMouseDown);
   }, [menuOn]);
 
   return (
-    <footer className={styles.root}
+    <footer
+      className={styles.root}
       onMouseDown={_onMouseDown}>
       <div className={clsx(
         styles["footer__items"],
