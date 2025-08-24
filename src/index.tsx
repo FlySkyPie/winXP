@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import './index.css';
 import './assets/clear.css';
@@ -9,7 +9,8 @@ import App from './App';
 // This is the standard way React handles this in Create React App
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  ReactDOM.render(<App />, rootElement);
+  const root = createRoot(rootElement);
+  root.render(<App />);
 } else {
   console.error('Root element not found. Make sure there is a div with id="root" in your HTML.');
 }
