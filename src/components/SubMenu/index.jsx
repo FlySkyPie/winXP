@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import clsx from 'clsx';
+
+import styles from './stylees.module.scss';
 
 function SubMenu({ className, data, style, onClick }) {
   const [hoverIndex, setHoverIndex] = useState(-1);
   return (
-    <div style={{ ...style }} className={className}>
+    <div
+      className={clsx(styles.root, className)}
+      style={{ ...style }}     >
       {data.map((item, index) => (
         <SubMenuItem
           onClick={onClick}
@@ -33,10 +37,10 @@ const SubMenuItem = ({ index, item, className, hover, onHover, onClick }) => {
         <div
           onClick={_onClick}
           onMouseEnter={_onMouseOver}
-          className={`${className}-item`}
+          className={styles[`root-item`]}
         >
-          <img className={`${className}-img`} src={item.icon} alt="" />
-          <div className={`${className}-text`}>{item.text}</div>
+          <img className={styles[`root-img`]} src={item.icon} alt="" />
+          <div className={styles[`root-text`]}>{item.text}</div>
         </div>
       );
     case 'separator':
@@ -45,13 +49,18 @@ const SubMenuItem = ({ index, item, className, hover, onHover, onClick }) => {
       return (
         <div
           onMouseEnter={_onMouseOver}
-          className={`${className}-item ${hover ? 'hover' : ''}`}
+          className={
+            clsx(
+              styles['root-item'],
+              hover && styles['hover'],
+            )
+          }
         >
-          <img className={`${className}-img`} src={item.icon} alt="" />
-          <div className={`${className}-text`}>{item.text}</div>
-          <div className={`${className}-arrow`}>
+          <img className={styles['root-img']} src={item.icon} alt="" />
+          <div className={styles["root-text"]}>{item.text}</div>
+          <div className={styles['root-arrow']}>
             {hover && (
-              <StyledSubMenu
+              <SubMenu
                 data={item.items}
                 bottom={item.bottom}
                 onClick={onClick}
@@ -65,75 +74,4 @@ const SubMenuItem = ({ index, item, className, hover, onHover, onClick }) => {
   }
 };
 
-const StyledSubMenu = styled(SubMenu)`
-  position: absolute;
-  z-index: 1;
-  left: ${({ left }) => left || '100%'};
-  bottom: ${({ bottom }) => bottom || '-1px'};
-  background-color: white;
-  padding-left: 1px;
-  box-shadow: inset 0 0 0 1px #72ade9, 2px 3px 3px rgb(0, 0, 0, 0.5);
-  &-separator {
-    padding: 0 5px;
-    height: 2px;
-    box-shadow: inset 3px 0 #4081ff;
-    background: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.1) 50%,
-      rgba(0, 0, 0, 0) 100%
-    );
-  }
-  &-item {
-    height: 25px;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    box-shadow: inset 3px 0 #4081ff;
-    position: relative;
-    padding-right: 22px;
-    color: black;
-  }
-  &-item.hover {
-    background-color: #1b65cc;
-    color: white;
-  }
-  &-item:hover {
-    background-color: #1b65cc;
-    color: white;
-    &-arrow:before {
-      border-left-color: #fff;
-    }
-  }
-  &-item:hover,
-  &-item.hover > &-arrow:before {
-    border-left-color: #fff;
-  }
-  &-img {
-    margin-right: 6px;
-    width: 16px;
-    height: 16px;
-  }
-  &-text {
-    font-size: 11px;
-    white-space: nowrap;
-  }
-  &-arrow {
-    position: absolute;
-    right: 0;
-    height: 100%;
-    width: 10px;
-    &:before {
-      top: 9px;
-      right: 6px;
-      content: '';
-      display: block;
-      border: 4px solid transparent;
-      border-right: 0;
-      border-left-color: #000;
-      position: absolute;
-    }
-  }
-`;
-
-export default StyledSubMenu;
+export default SubMenu;
