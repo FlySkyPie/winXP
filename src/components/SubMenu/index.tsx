@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 
+import type { IFooterMenuItem } from '../../WinXP/Footer/FooterMenuData';
+
 import styles from './stylees.module.scss';
 
 interface ISubMenuProps {
   className?: string,
-  data: any[],
+  data: IFooterMenuItem[],
   style?: React.CSSProperties,
   bottom?: string | number;
   left?: string | number;
-  onClick: any;
+  onClick: (text?: string )=> void;
 };
 
 const SubMenu: React.FC<ISubMenuProps> = ({
@@ -40,12 +42,12 @@ const SubMenu: React.FC<ISubMenuProps> = ({
 }
 
 interface ISubMenuItemProps {
-  index: any,
-  item: any,
+  index: number,
+  item: IFooterMenuItem,
   className?: string,
-  hover: any,
-  onHover: any,
-  onClick: any
+  hover: boolean,
+  onHover: (index: number) => void,
+  onClick: (text?: string | undefined) => void;
 };
 
 const SubMenuItem: React.FC<ISubMenuItemProps> = ({ index, item, className, hover, onHover, onClick }) => {
@@ -83,7 +85,7 @@ const SubMenuItem: React.FC<ISubMenuItemProps> = ({ index, item, className, hove
           <img className={styles['root-img']} src={item.icon} alt="" />
           <div className={styles["root-text"]}>{item.text}</div>
           <div className={styles['root-arrow']}>
-            {hover && (
+            {hover && item.items && (
               <SubMenu
                 data={item.items}
                 bottom={item.bottom}

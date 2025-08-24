@@ -1,6 +1,11 @@
-import React from 'react';
 
-function DashedBox({ mouse, startPos }) {
+
+interface IProps {
+  mouse: any,
+  startPos: any
+}
+
+const DashedBox: React.FC<IProps> = ({ mouse, startPos }) => {
   function getRect() {
     return {
       x: Math.min(startPos.x, mouse.docX),

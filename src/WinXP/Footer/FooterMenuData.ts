@@ -57,6 +57,10 @@ import mine from '../../assets/minesweeper/mine-icon.png';
 
 interface ISeparatorItem {
   type: "separator";
+  icon?: undefined;
+  text?: undefined;
+  bottom?: undefined;
+  items?: undefined;
 };
 
 export interface IFooterMenuAppItem {

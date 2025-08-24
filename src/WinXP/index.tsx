@@ -73,7 +73,7 @@ function WinXP() {
   function onMouseDownFooter() {
     dispatch({ type: ActionType.FOCUS_DESKTOP });
   }
-  function onClickMenuItem(o: any) {
+  function onClickMenuItem(o?: string) {
     if (o === 'Internet')
       dispatch({ type: ActionType.ADD_APP, payload: appSettings['Internet Explorer'] });
     else if (o === 'My Computer')

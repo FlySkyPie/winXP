@@ -34,7 +34,7 @@ interface IFooterProps {
   apps: IAppState[],
   focusedAppId: number,
   onMouseDown: any,
-  onClickMenuItem: any,
+  onClickMenuItem: (name?: string) => void,
 };
 
 const Footer: React.FC<IFooterProps> = ({
@@ -54,7 +54,7 @@ const Footer: React.FC<IFooterProps> = ({
     if (e.target.closest(`.${styles['footer__window']}`)) return;
     onMouseDown();
   }
-  function _onClickMenuItem(name: any) {
+  function _onClickMenuItem(name?: string) {
     onClickMenuItem(name);
     setMenuOn(false);
   }

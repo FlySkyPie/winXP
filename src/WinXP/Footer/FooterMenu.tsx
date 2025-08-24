@@ -31,7 +31,7 @@ import styles from './footer.styles.module.scss';
 
 interface IFooterMenuProps {
   className?: string,
-  onClick: any;
+  onClick: (text?: string) => void;
 };
 
 const FooterMenu: React.FC<IFooterMenuProps> = ({ className, onClick }) => {

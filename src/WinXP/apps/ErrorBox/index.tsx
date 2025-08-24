@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import errorSoundSrc from '../../../assets/sounds/error.wav';
 import error from '../../../assets/windowsIcons/897(32x32).png';
+
 import styles from './styles.module.scss';
 
-function lineBreak(str) {
+function lineBreak(str: string) {
   return str.split('\n').map((s, i) => (
     <p key={i} className={styles["error__message"]}>
       {s}
@@ -12,7 +13,12 @@ function lineBreak(str) {
   ));
 }
 
-function Error({ onClose, message = "Something's wrong!" }) {
+interface IProps {
+  onClose: any;
+  message?: string
+};
+
+const Error: React.FC<IProps> = ({ onClose, message = "Something's wrong!" }) => {
   useEffect(() => {
     try {
       new Audio(errorSoundSrc).play();
