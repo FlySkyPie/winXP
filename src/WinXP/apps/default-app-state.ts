@@ -20,6 +20,7 @@ export interface IAppState {
     header: {
         title: string;
         icon: string;
+        noFooterWindow?: boolean;
     };
 
     defaultSize: {

@@ -11,7 +11,10 @@ interface IState {
     nextZIndex: number;
     focusing: FOCUSING;
     icons: IIconState[];
-    selecting: boolean;
+    selecting: null | {
+        x: number;
+        y: number;
+    }
     powerState: POWER_STATE;
 }
 
@@ -21,7 +24,7 @@ export const initState: IState = {
     nextZIndex: defaultAppState.length,
     focusing: FOCUSING.WINDOW,
     icons: defaultIconState,
-    selecting: false,
+    selecting: null,
     powerState: POWER_STATE.START,
 };
 

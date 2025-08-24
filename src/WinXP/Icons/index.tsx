@@ -1,16 +1,30 @@
+import type { State } from 'react-use/lib/useMouse';
 import React, { useState, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 
+import type { IIconState } from '../apps/default-icon-state';
+
 import styles from './styles.module.scss'
 
+interface IRect {
+  id: number,
+  x: number,
+  y: number,
+  w: number,
+  h: number
+}
+
 interface IIconsProps {
-  icons: any,
-  onMouseDown: any,
-  onDoubleClick: any,
-  displayFocus: any,
-  mouse: any,
-  selecting: any,
-  setSelectedIcons: any,
+  icons: IIconState[],
+  onMouseDown: (id: any) => void,
+  onDoubleClick: (component: any) => void,
+  displayFocus: boolean,
+  mouse: State,
+  selecting: null | {
+    x: number;
+    y: number;
+  },
+  setSelectedIcons: (iconIds: any) => void,
 };
 
 const Icons: React.FC<IIconsProps> = ({
@@ -23,7 +37,7 @@ const Icons: React.FC<IIconsProps> = ({
   setSelectedIcons,
 }) => {
   const [iconsRect, setIconsRect] = useState<any[]>([]);
-  function measure(rect: any) {
+  function measure(rect: IRect) {
     if (iconsRect.find(r => r.id === rect.id)) return;
     setIconsRect((iconsRect: any) => [...iconsRect, rect]);
   }
@@ -43,7 +57,7 @@ const Icons: React.FC<IIconsProps> = ({
   }, [iconsRect, setSelectedIcons, selecting, mouse.docX, mouse.docY]);
   return (
     <div className={styles.root}>
-      {icons.map((icon: any) => (
+      {icons.map((icon) => (
         <Icon
           key={icon.id}
           {...icon}
@@ -60,15 +74,16 @@ const Icons: React.FC<IIconsProps> = ({
   );
 }
 
-interface IIconProps {
-  title: any,
-  onMouseDown: any,
-  onDoubleClick: any,
-  icon: any,
-  className: any,
-  id: any,
-  component: any,
-  measure: any,
+interface IIconProps extends IIconState {
+  id: number;
+  icon: string;
+  title: string;
+  component: React.FC<any>;
+  isFocus: boolean;
+  onMouseDown: (id: number) => void,
+  onDoubleClick: (component: React.FC<any>) => void,
+  className?: string,
+  measure: (rect: IRect) => void,
 };
 
 const Icon: React.FC<IIconProps> = ({
@@ -81,7 +96,7 @@ const Icon: React.FC<IIconProps> = ({
   component,
   measure,
 }) => {
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   function _onMouseDown() {
     onMouseDown(id);
   }
@@ -91,7 +106,7 @@ const Icon: React.FC<IIconProps> = ({
   useEffect(() => {
     const target = ref.current;
     if (!target) return;
-    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    const { left, top, width, height } = target.getBoundingClientRect();
     const posX = left + window.scrollX;
     const posY = top + window.scrollY;
     measure({ id, x: posX, y: posY, w: width, h: height });
