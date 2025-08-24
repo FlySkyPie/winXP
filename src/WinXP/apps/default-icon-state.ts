@@ -8,7 +8,7 @@ import MyComputer from './MyComputer';
 import Notepad from './Notepad';
 import Paint from './Paint';
 
-interface IIconState {
+export interface IIconState {
     id: number;
     icon: string;
     title: string;

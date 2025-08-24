@@ -18,7 +18,7 @@ import {
   CANCEL_POWER_OFF,
 } from './constants/actions';
 import { FOCUSING, POWER_STATE } from './constants';
-import { appSettings } from './apps';
+import { appSettings } from './apps/app-settings';
 import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';

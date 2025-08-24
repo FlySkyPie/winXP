@@ -14,7 +14,7 @@ const gen = () => {
 const genId = gen();
 const genIndex = gen();
 
-interface IAppState {
+export interface IAppState {
     component: React.FC<any>;
 
     header: {

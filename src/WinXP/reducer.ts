@@ -12,11 +12,23 @@ import {
     POWER_OFF,
     CANCEL_POWER_OFF,
 } from './constants/actions';
-import { FOCUSING, POWER_STATE } from './constants';
-import { defaultAppState } from './apps/default-app-state';
-import { defaultIconState } from './apps/default-icon-state';
+import { defaultAppState, type IAppState } from './apps/default-app-state';
+import { defaultIconState, type IIconState } from './apps/default-icon-state';
+import { Focusing as FOCUSING } from './constants/focusing';
+import { PowerState as POWER_STATE } from './constants/power-state';
+import type { IActions } from './constants/reduce-action';
 
-export const initState = {
+interface IState {
+    apps: IAppState[];
+    nextAppID: number;
+    nextZIndex: number;
+    focusing: FOCUSING;
+    icons: IIconState[];
+    selecting: boolean;
+    powerState: POWER_STATE;
+}
+
+export const initState: IState = {
     apps: defaultAppState,
     nextAppID: defaultAppState.length,
     nextZIndex: defaultAppState.length,
@@ -26,7 +38,7 @@ export const initState = {
     powerState: POWER_STATE.START,
 };
 
-export const reducer = (state: any, action: any = { type: '' }) => {
+export const reducer = (state: any, action: IActions): IState => {
     switch (action.type) {
         case ADD_APP:
             const app = state.apps.find(
