@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import clsx from 'clsx';
 
 import { WindowDropDowns } from '../../../components';
 import dropDownData from './dropDownData';
+import styles from './styles.module.scss';
 
 export default function Notepad({ onClose }) {
   const [docText, setDocText] = useState('');
@@ -44,44 +45,20 @@ export default function Notepad({ onClose }) {
   }
 
   return (
-    <Div>
-      <section className="np__toolbar">
+    <div className={styles.root}>
+      <section className={styles["np__toolbar"]}>
         <WindowDropDowns items={dropDownData} onClickItem={onClickOptionItem} />
       </section>
-      <StyledTextarea
-        wordWrap={wordWrap}
+      <textarea
+        className={clsx(
+          styles.textarea,
+          wordWrap && styles.no_wordWrap,
+        )}
         value={docText}
         onChange={e => setDocText(e.target.value)}
         onKeyDown={onTextAreaKeyDown}
         spellCheck={false}
       />
-    </Div>
+    </div>
   );
 }
-
-const Div = styled.div`
-  height: 100%;
-  background: linear-gradient(to right, #edede5 0%, #ede8cd 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  .np__toolbar {
-    position: relative;
-    height: 21px;
-    flex-shrink: 0;
-    border-bottom: 1px solid white;
-  }
-`;
-
-const StyledTextarea = styled.textarea`
-  flex: auto;
-  outline: none;
-  font-family: 'Lucida Console', monospace;
-  font-size: 13px;
-  line-height: 14px;
-  resize: none;
-  padding: 2px;
-  ${props => (props.wordWrap ? '' : 'white-space: nowrap; overflow-x: scroll;')}
-  overflow-y: scroll;
-  border: 1px solid #96abff;
-`;
