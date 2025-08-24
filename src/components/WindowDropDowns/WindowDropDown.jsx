@@ -7,8 +7,6 @@ import check from '../../assets/windowsIcons/checked.png';
 import folder from '../../assets/windowsIcons/folder.png';
 import styles from './window-drop-down.styles.module.scss';
 
-console.log(styles)
-
 export function WindowDropDown({ items, position = {}, onClick }) {
   const [option, setOption] = useState('');
   return (

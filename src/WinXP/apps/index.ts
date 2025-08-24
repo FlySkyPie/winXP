@@ -4,97 +4,10 @@ import MyComputer from './MyComputer';
 import Notepad from './Notepad';
 import Paint from './Paint';
 import iePaper from '../../assets/windowsIcons/ie-paper.png';
-import ie from '../../assets/windowsIcons/ie.png';
 import error from '../../assets/windowsIcons/897(16x16).png';
 import computer from '../../assets/windowsIcons/676(16x16).png';
-import computerLarge from '../../assets/windowsIcons/676(32x32).png';
 import notepad from '../../assets/windowsIcons/327(16x16).png';
-import notepadLarge from '../../assets/windowsIcons/327(32x32).png';
-import paintLarge from '../../assets/windowsIcons/680(32x32).png';
 import paint from '../../assets/windowsIcons/680(16x16).png';
-
-const gen = () => {
-  let id = -1;
-  return () => {
-    id += 1;
-    return id;
-  };
-};
-const genId = gen();
-const genIndex = gen();
-export const defaultAppState = [
-  {
-    component: InternetExplorer,
-    header: {
-      title: 'Internet Explorer',
-      icon: iePaper,
-    },
-    defaultSize: {
-      width: 700,
-      height: 500,
-    },
-    defaultOffset: {
-      x: 130,
-      y: 20,
-    },
-    resizable: true,
-    minimized: false,
-    maximized: window.innerWidth < 800,
-    id: genId(),
-    zIndex: genIndex(),
-  },
-  {
-    component: MyComputer,
-    header: {
-      title: 'My Computer',
-      icon: computer,
-    },
-    defaultSize: {
-      width: 660,
-      height: 500,
-    },
-    defaultOffset: {
-      x: 250,
-      y: 40,
-    },
-    resizable: true,
-    minimized: false,
-    maximized: window.innerWidth < 800,
-    id: genId(),
-    zIndex: genIndex(),
-  },
-];
-
-export const defaultIconState = [
-  {
-    id: 0,
-    icon: ie,
-    title: 'Internet Explorer',
-    component: InternetExplorer,
-    isFocus: false,
-  },
-  {
-    id: 2,
-    icon: computerLarge,
-    title: 'My Computer',
-    component: MyComputer,
-    isFocus: false,
-  },
-  {
-    id: 3,
-    icon: notepadLarge,
-    title: 'Notepad',
-    component: Notepad,
-    isFocus: false,
-  },
-  {
-    id: 5,
-    icon: paintLarge,
-    title: 'Paint',
-    component: Paint,
-    isFocus: false,
-  },
-];
 
 export const appSettings = {
   'Internet Explorer': {

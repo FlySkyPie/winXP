@@ -13,7 +13,8 @@ import {
     CANCEL_POWER_OFF,
 } from './constants/actions';
 import { FOCUSING, POWER_STATE } from './constants';
-import { defaultIconState, defaultAppState, } from './apps';
+import { defaultAppState } from './apps/default-app-state';
+import { defaultIconState } from './apps/default-icon-state';
 
 export const initState = {
     apps: defaultAppState,
@@ -25,11 +26,11 @@ export const initState = {
     powerState: POWER_STATE.START,
 };
 
-export const reducer = (state, action = { type: '' }) => {
+export const reducer = (state: any, action: any = { type: '' }) => {
     switch (action.type) {
         case ADD_APP:
             const app = state.apps.find(
-                _app => _app.component === action.payload.component,
+                (_app: any) => _app.component === action.payload.component,
             );
             if (action.payload.multiInstance || !app) {
                 return {
@@ -47,7 +48,7 @@ export const reducer = (state, action = { type: '' }) => {
                     focusing: FOCUSING.WINDOW,
                 };
             }
-            const apps = state.apps.map(app =>
+            const apps = state.apps.map((app: any) =>
                 app.component === action.payload.component
                     ? { ...app, zIndex: state.nextZIndex, minimized: false }
                     : app,
@@ -62,16 +63,16 @@ export const reducer = (state, action = { type: '' }) => {
             if (state.focusing !== FOCUSING.WINDOW) return state;
             return {
                 ...state,
-                apps: state.apps.filter(app => app.id !== action.payload),
+                apps: state.apps.filter((app: any) => app.id !== action.payload),
                 focusing:
                     state.apps.length > 1
                         ? FOCUSING.WINDOW
-                        : state.icons.find(icon => icon.isFocus)
+                        : state.icons.find((icon: any) => icon.isFocus)
                             ? FOCUSING.ICON
                             : FOCUSING.DESKTOP,
             };
         case FOCUS_APP: {
-            const apps = state.apps.map(app =>
+            const apps = state.apps.map((app: any) =>
                 app.id === action.payload
                     ? { ...app, zIndex: state.nextZIndex, minimized: false }
                     : app,
@@ -85,7 +86,7 @@ export const reducer = (state, action = { type: '' }) => {
         }
         case MINIMIZE_APP: {
             if (state.focusing !== FOCUSING.WINDOW) return state;
-            const apps = state.apps.map(app =>
+            const apps = state.apps.map((app: any) =>
                 app.id === action.payload ? { ...app, minimized: true } : app,
             );
             return {
@@ -96,7 +97,7 @@ export const reducer = (state, action = { type: '' }) => {
         }
         case TOGGLE_MAXIMIZE_APP: {
             if (state.focusing !== FOCUSING.WINDOW) return state;
-            const apps = state.apps.map(app =>
+            const apps = state.apps.map((app: any) =>
                 app.id === action.payload ? { ...app, maximized: !app.maximized } : app,
             );
             return {
@@ -106,7 +107,7 @@ export const reducer = (state, action = { type: '' }) => {
             };
         }
         case FOCUS_ICON: {
-            const icons = state.icons.map(icon => ({
+            const icons = state.icons.map((icon: any) => ({
                 ...icon,
                 isFocus: icon.id === action.payload,
             }));
@@ -117,7 +118,7 @@ export const reducer = (state, action = { type: '' }) => {
             };
         }
         case SELECT_ICONS: {
-            const icons = state.icons.map(icon => ({
+            const icons = state.icons.map((icon: any) => ({
                 ...icon,
                 isFocus: action.payload.includes(icon.id),
             }));
@@ -131,7 +132,7 @@ export const reducer = (state, action = { type: '' }) => {
             return {
                 ...state,
                 focusing: FOCUSING.DESKTOP,
-                icons: state.icons.map(icon => ({
+                icons: state.icons.map((icon: any) => ({
                     ...icon,
                     isFocus: false,
                 })),
@@ -140,7 +141,7 @@ export const reducer = (state, action = { type: '' }) => {
             return {
                 ...state,
                 focusing: FOCUSING.DESKTOP,
-                icons: state.icons.map(icon => ({
+                icons: state.icons.map((icon: any) => ({
                     ...icon,
                     isFocus: false,
                 })),
