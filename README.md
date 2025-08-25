@@ -1,5 +1,18 @@
 # WinXP
 
+This project is forked from [ShizukuIchi/winXP](https://github.com/ShizukuIchi/winXP)
+
+## Changes
+
+Compare to ShizukuIchi's last work ([856bb55](https://github.com/ShizukuIchi/winXP/commit/856bb554b3667f62078010b4cee10cc2645761e1)), here are differences:
+
+- Update React from 16 to 18.
+- Replace styled component with SCSS module.
+- Add some Typescript.
+- Replace RCA with Vite.
+
+# Original README
+
 🏁 Web based Windows XP desktop recreation.
 
 Features:
